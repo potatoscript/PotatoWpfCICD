@@ -24,3 +24,16 @@ jobs:
 
     - name: Build
       run: dotnet build --configuration Release
+
+    - name: Test
+      run: dotnet test --configuration Release
+  
+    - name: Publish
+      run: dotnet publish src/PotatoWpfCICD/PotatoWpfCICD.csproj -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PotatoWpfCICD
+        path: |
+          src/PotatoWpfCICD/bin/Release/**/publish/
